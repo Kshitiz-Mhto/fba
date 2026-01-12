@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import DashboardPage from './app/dashboard/page';
 import BuilderPage from './app/builder/page';
+import PreviewPage from './app/preview/page';
+import PublishFormPage from './app/publish/page';
 
 const App: React.FC = () => {
   return (
@@ -26,6 +28,10 @@ const App: React.FC = () => {
 
         {/* Builder Route (No Layout, handles its own) */}
         <Route path="/builder" element={<BuilderPage />} />
+        <Route path="/preview" element={<PreviewPage />} />
+
+        {/* Public Form Route */}
+        <Route path="/:username/:formSlug" element={<PublishFormPage />} />
       </Routes>
     </Router>
   );
