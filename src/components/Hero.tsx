@@ -187,9 +187,9 @@ export const Hero: React.FC = () => {
             <FadeIn delay={100}>
               <h1 className="text-6xl md:text-[84px] font-bold tracking-tight text-zinc-900 leading-[0.95] mb-8">
                 Forms that feel <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-500">
+                <span className="text-transparent bg-clip-text bg-brand-700">
                   like Conversation.
-                  <svg className="absolute -bottom-2 left-0 w-full h-3 text-brand-200/60 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <svg className="absolute -bottom-2 left-0 w-full h-3 text-brand-200/90 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="8" />
                   </svg>                </span>
               </h1>
