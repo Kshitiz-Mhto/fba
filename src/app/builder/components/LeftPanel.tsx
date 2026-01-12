@@ -1,9 +1,10 @@
 import React from 'react';
 import { Type, AlignLeft, CheckSquare, List, ChevronDown } from 'lucide-react';
-import { useBuilder, type QuestionType } from '../context/BuilderContext';
+import { useDispatch } from 'react-redux';
+import { addQuestion, type QuestionType } from '../../../store/slices/formSlice';
 
 export const LeftPanel: React.FC = () => {
-    const { addQuestion } = useBuilder();
+    const dispatch = useDispatch();
 
     const questionTypes: { type: QuestionType; icon: React.ElementType; label: string }[] = [
         { type: 'short-text', icon: Type, label: 'Short Text' },
@@ -25,7 +26,7 @@ export const LeftPanel: React.FC = () => {
                     {questionTypes.map(({ type, icon: Icon, label }) => (
                         <button
                             key={type}
-                            onClick={() => addQuestion(type)}
+                            onClick={() => dispatch(addQuestion(type))}
                             className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-200/50 transition-colors text-left focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                         >
                             <Icon className="h-4 w-4 text-neutral-500" />
