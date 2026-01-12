@@ -1,20 +1,16 @@
 import React from 'react';
 import { FileText, BarChart2, Copy, Archive } from 'lucide-react';
-import { StatusBadge, type FormStatus } from './StatusBadge';
-
-export interface Form {
-    id: string;
-    title: string;
-    status: FormStatus;
-    responses: number;
-    lastUpdated: string;
-}
+import { StatusBadge } from './StatusBadge';
+import { useDispatch } from 'react-redux';
+import { deleteForm, duplicateForm, type Form } from '../../../store/slices/dashboardSlice';
 
 interface FormsListProps {
     forms: Form[];
 }
 
 export const FormsList: React.FC<FormsListProps> = ({ forms }) => {
+    const dispatch = useDispatch();
+
     if (forms.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -94,13 +90,21 @@ export const FormsList: React.FC<FormsListProps> = ({ forms }) => {
                                         <BarChart2 className="h-4 w-4" />
                                     </button>
                                     <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            dispatch(duplicateForm(form.id));
+                                        }}
                                         className="p-1.5 text-neutral-400 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                                         title="Duplicate"
                                     >
                                         <Copy className="h-4 w-4" />
                                     </button>
                                     <button
-                                        className="p-1.5 text-neutral-400 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            dispatch(deleteForm(form.id));
+                                        }}
+                                        className="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                                         title="Archive"
                                     >
                                         <Archive className="h-4 w-4" />
