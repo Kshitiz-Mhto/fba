@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Question } from '../../store/slices/formSlice';
+import { Loader } from '../../components/ui/Loader';
+import { userAPI } from '../../services/api';
 
 interface FormState {
+    id: string;
     title: string;
     description: string;
     questions: Question[];
@@ -15,22 +18,25 @@ const PublishFormPage: React.FC = () => {
     const [form, setForm] = useState<FormState | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // -1: Welcome Screen, 0 to N-1: Questions, N: Completion
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [direction, setDirection] = useState(0);
     const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Simulate fetching from backend (using localStorage)
-        const loadForm = () => {
+        const loadForm = async () => {
+            if (!username || !formSlug) return;
             try {
-                const storageKey = `form_${username}_${formSlug}`;
-                const savedForm = localStorage.getItem(storageKey);
-
-                if (savedForm) {
-                    setForm(JSON.parse(savedForm));
-                }
+                const data = await userAPI.getPublicForm(username, formSlug);
+                // Map backend options (objects) to frontend options (strings)
+                const mappedQuestions = (data.questions || []).map((q: any) => ({
+                    ...q,
+                    options: q.options ? q.options.map((opt: any) => opt.label) : undefined
+                }));
+                setForm({
+                    ...data,
+                    questions: mappedQuestions
+                });
             } catch (err) {
                 console.error('Failed to load form', err);
             } finally {
@@ -41,12 +47,10 @@ const PublishFormPage: React.FC = () => {
         loadForm();
     }, [username, formSlug]);
 
+
+    // ... inside PublishFormPage component
     if (loading) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-neutral-50">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-200 border-t-brand-600" />
-            </div>
-        );
+        return <Loader variant="full" text={form ? "Submitting response..." : "Loading form..."} />;
     }
 
     if (!form) {
@@ -74,8 +78,31 @@ const PublishFormPage: React.FC = () => {
         }
 
         setError(null);
-        setDirection(1);
-        setCurrentIndex((prev) => Math.min(prev + 1, questions.length));
+        if (currentIndex === questions.length - 1) {
+            handleSubmit();
+        } else {
+            setDirection(1);
+            setCurrentIndex((prev) => Math.min(prev + 1, questions.length));
+        }
+    };
+
+    const handleSubmit = async () => {
+        if (!form) return;
+        setLoading(true);
+        try {
+            const submissionData = Object.entries(answers).map(([questionId, value]) => ({
+                question_id: questionId,
+                value: value
+            }));
+            await userAPI.submitForm(form.id, submissionData);
+            setDirection(1);
+            setCurrentIndex(questions.length);
+        } catch (err) {
+            console.error('Failed to submit form', err);
+            setError('Failed to submit form. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handlePrev = () => {
@@ -117,10 +144,8 @@ const PublishFormPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 selection:bg-brand-200 selection:text-brand-900 flex flex-col">
-            {/* Header */}
             <div className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-transparent">
 
-                {/* Segmented Progress Bar */}
                 {currentIndex >= 0 && currentIndex < questions.length && (
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-1">
                         {questions.map((_, idx) => (
@@ -134,7 +159,6 @@ const PublishFormPage: React.FC = () => {
                 )}
             </div>
 
-            {/* Main Content */}
             <div className="flex-1 flex items-center justify-center p-4 overflow-hidden relative">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                     {currentIndex === -1 ? (
@@ -148,7 +172,6 @@ const PublishFormPage: React.FC = () => {
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             className="w-full max-w-3xl relative"
                         >
-                            {/* Decorative Background Elements */}
                             <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-brand-200 opacity-50 blur-3xl filter animate-pulse" />
                             <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-blue-200 opacity-50 blur-3xl filter animate-pulse delay-1000" />
 
