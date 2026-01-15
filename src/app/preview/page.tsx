@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, ChevronLeft, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { RootState } from '../../store/store';
 
 const PreviewPage: React.FC = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+            navigate('/login');
+        }
+    }, [navigate]);
+
     const { title, description, questions } = useSelector((state: RootState) => state.form);
-    // -1: Welcome Screen, 0 to N-1: Questions, N: Completion
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [direction, setDirection] = useState(0);
     const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
@@ -70,7 +78,6 @@ const PreviewPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 selection:bg-brand-200 selection:text-brand-900 flex flex-col">
-            {/* Preview Header */}
             <div className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-neutral-200 bg-white/80 backdrop-blur-md px-4 shadow-sm">
                 <div className="flex items-center gap-4">
                     <Link to="/builder" className="flex items-center gap-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">
@@ -83,7 +90,6 @@ const PreviewPage: React.FC = () => {
                     </span>
                 </div>
 
-                {/* Segmented Progress Bar */}
                 {currentIndex >= 0 && currentIndex < questions.length && (
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-1">
                         {questions.map((_, idx) => (
@@ -97,7 +103,6 @@ const PreviewPage: React.FC = () => {
                 )}
             </div>
 
-            {/* Main Content */}
             <div className="flex-1 flex items-center justify-center p-4 overflow-hidden relative">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                     {currentIndex === -1 ? (
@@ -111,7 +116,6 @@ const PreviewPage: React.FC = () => {
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             className="w-full max-w-3xl relative"
                         >
-                            {/* Decorative Background Elements */}
                             <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-brand-200 opacity-50 blur-3xl filter animate-pulse" />
                             <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-blue-200 opacity-50 blur-3xl filter animate-pulse delay-1000" />
 
