@@ -7,9 +7,9 @@ interface FadeInProps {
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
 }
 
-export const FadeIn: React.FC<FadeInProps> = ({ 
-  children, 
-  delay = 0, 
+export const FadeIn: React.FC<FadeInProps> = ({
+  children,
+  delay = 0,
   className = '',
   direction = 'up'
 }) => {
@@ -21,7 +21,6 @@ export const FadeIn: React.FC<FadeInProps> = ({
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Once visible, we can stop observing to prevent re-triggering (optional)
           if (domRef.current) observer.unobserve(domRef.current);
         }
       });
