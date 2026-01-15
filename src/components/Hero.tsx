@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { FadeIn } from './ui/FadeIn';
 
-// --- SLIDES CONFIGURATION ---
 const SLIDES = [
   {
     id: 'feedback',
@@ -68,7 +67,6 @@ const SLIDES = [
                 : 'border-zinc-100 bg-white'}
             `}
           >
-            {/* Voted Progress Bar Background */}
             {state === 'done' && (
               <div
                 className={`absolute inset-0 bg-violet-500/5 transition-all duration-1000 ease-out`}
@@ -138,18 +136,15 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const sequence = () => {
-      // 1. Move Cursor In
       setInteractionState('active');
       setCursorPos({ x: 70, y: 65 });
 
-      // 2. Click
       setTimeout(() => setIsClicking(true), 1200);
       setTimeout(() => {
         setIsClicking(false);
         setInteractionState('done');
       }, 1400);
 
-      // 3. Reset for next
       setTimeout(() => {
         setInteractionState('idle');
         setCursorPos({ x: 50, y: 110 });
@@ -160,13 +155,12 @@ export const Hero: React.FC = () => {
     };
 
     const timer = setInterval(sequence, 5500);
-    sequence(); // Initial run
+    sequence();
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section className="relative pt-24 pb-20 md:pt-40 md:pb-40 overflow-hidden bg-white">
-      {/* Subtle Background Gradients */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-50/40 rounded-full blur-[120px]" />
         <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-violet-50/40 rounded-full blur-[100px]" />
@@ -175,7 +169,6 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col gap-20 items-center">
 
-          {/* Text Content */}
           <div className="max-w-4xl text-center space-y-8">
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-indigo-200/60 text-zinc-600 text-sm font-semibold mb-2">
@@ -229,12 +222,11 @@ export const Hero: React.FC = () => {
             </FadeIn>
           </div>
 
-          {/* Interactive Demo Card */}
+          {/* AI generated design*/}
           <div className="w-full max-w-7xl relative">
             <FadeIn delay={400}>
               <div className="relative bg-white rounded-[2rem] border border-zinc-200/60 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] overflow-hidden aspect-[16/10] md:aspect-[16/8]">
 
-                {/* Browser-like Header */}
                 <div className="h-12 border-b border-zinc-100 bg-zinc-50/30 flex items-center px-6 justify-between">
                   <div className="flex gap-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
@@ -247,12 +239,10 @@ export const Hero: React.FC = () => {
                       craft.io/COMPANY/feedback
                     </div>
                   </div>
-                  <div className="w-12" /> {/* Spacer */}
+                  <div className="w-12" />
                 </div>
 
-                {/* Main Canvas */}
                 <div className="relative h-full w-full bg-white flex">
-                  {/* Left: Sidebar Progress */}
                   <div className="hidden md:flex w-20 border-r border-zinc-50 flex-col items-center py-8 gap-10">
                     <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-white font-black text-xl">C</div>
                     <div className="flex-1 flex flex-col gap-6">
@@ -262,7 +252,6 @@ export const Hero: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Center: Interactive Slide */}
                   <div className="flex-1 relative flex items-center justify-center p-8 md:p-12">
                     {SLIDES.map((slide, index) => (
                       <div
@@ -288,7 +277,6 @@ export const Hero: React.FC = () => {
                       </div>
                     ))}
 
-                    {/* Cursor Interaction */}
                     <div
                       className="absolute z-50 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
                       style={{
@@ -309,7 +297,6 @@ export const Hero: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Live Results Floating Card */}
                 <div
                   className={`
                     absolute top-20 right-8 w-60 bg-white/80 backdrop-blur-xl rounded-2xl border border-zinc-200/50 shadow-2xl p-4 z-40
@@ -344,7 +331,6 @@ export const Hero: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Success Toast */}
                 <div
                   className={`
                     absolute bottom-10 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 z-50

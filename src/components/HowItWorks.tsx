@@ -55,8 +55,6 @@ export const HowItWorks: React.FC = () => {
         </FadeIn>
 
         <div className="relative">
-          {/* Connecting Line (Desktop) */}
-          {/* We position it behind the icons. Using a mask or z-index to ensure numbers sit on top. */}
           <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-[2px] bg-neutral-100 z-0 rounded-full overflow-hidden">
             <div
               className={`h-full bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200 transition-all duration-[2000ms] ease-in-out`}
@@ -71,24 +69,19 @@ export const HowItWorks: React.FC = () => {
             {STEPS.map((step, index) => (
               <FadeIn key={index} delay={index * 200} className="flex flex-col items-center text-center group">
 
-                {/* Step Node */}
                 <div className="relative mb-8 cursor-default">
-                  {/* The Box */}
                   <div className="w-16 h-16 bg-white border-2 border-neutral-100 rounded-2xl flex items-center justify-center text-lg font-bold text-neutral-400 shadow-[0_0_0_12px_rgba(255,255,255,1)] group-hover:border-brand-500 group-hover:text-brand-600 group-hover:scale-110 group-hover:shadow-[0_8px_30px_-4px_rgba(79,70,229,0.2)] transition-all duration-300 ease-out z-10 relative">
 
-                    {/* Default Number State */}
                     <span className="group-hover:opacity-0 group-hover:scale-50 transition-all duration-300 absolute">
                       {step.number}
                     </span>
 
-                    {/* Hover Icon State */}
                     <span className="opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 absolute">
                       <step.icon size={24} className="text-brand-600" />
                     </span>
                   </div>
                 </div>
 
-                {/* Content */}
                 <h3 className="text-xl font-bold text-neutral-900 mb-3 group-hover:text-brand-600 transition-colors duration-300">
                   {step.title}
                 </h3>

@@ -8,10 +8,8 @@ export const Footer: React.FC = () => {
     <footer className="bg-neutral-50 border-t border-neutral-200 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Main Footer Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
 
-          {/* Brand Column */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-3">
               <img
@@ -54,7 +52,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Product Column */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-neutral-900 mb-5">
               Product
@@ -67,7 +64,6 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Company Column */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-neutral-900 mb-5">
               Company
@@ -79,7 +75,6 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Legal Column */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-neutral-900 mb-5">
               Legal
@@ -93,7 +88,6 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Newsletter Subscribe Card */}
         <div className="py-6 px-6 md:px-10 bg-white border border-neutral-200 rounded-2xl mb-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="max-w-md">
@@ -117,7 +111,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Footer Row */}
         <div className="pt-8 border-t border-neutral-200 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-400 gap-4">
           <div className="flex items-center text-neutral-500">
             <span>© {currentYear} CrafT Inc. All rights reserved.</span>

@@ -16,13 +16,9 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when location changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
-
-  // Don't show navbar on login/signup pages if desired, 
-  // but for now we'll keep it and just adjust links
 
   return (
     <nav
@@ -33,7 +29,6 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link
             to="/"
             className="flex items-center cursor-pointer"
@@ -49,8 +44,6 @@ export const Navbar: React.FC = () => {
             </span>
           </Link>
 
-
-          {/* Right Side Actions (Desktop) */}
           <div className="hidden md:flex items-center gap-8">
             <a href="#" className="text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">Pricing</a>
             <Link to="/login" className="text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">Login</Link>
@@ -59,7 +52,6 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden text-neutral-600"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -68,7 +60,6 @@ export const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden pt-4 pb-6 space-y-4 border-t border-neutral-100 mt-4">
             <a
