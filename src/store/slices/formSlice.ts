@@ -70,6 +70,25 @@ export const formSlice = createSlice({
             const [removed] = state.questions.splice(startIndex, 1);
             state.questions.splice(endIndex, 0, removed);
         },
+        setForm: (state, action: PayloadAction<{ title: string; description: string; questions: any[] }>) => {
+            state.title = action.payload.title;
+            state.description = action.payload.description || '';
+            state.questions = (action.payload.questions || []).map((q) => ({
+                id: q.id,
+                type: q.type,
+                title: q.title,
+                description: q.description || '',
+                required: q.required,
+                emoji: q.emoji || '',
+                options: q.options ? q.options.map((opt: any) => opt.label) : undefined,
+            }));
+        },
+        resetForm: (state) => {
+            state.title = initialState.title;
+            state.description = initialState.description;
+            state.questions = initialState.questions;
+            state.selectedId = initialState.selectedId;
+        },
     },
 });
 
@@ -81,6 +100,8 @@ export const {
     deleteQuestion,
     selectItem,
     reorderQuestions,
+    setForm,
+    resetForm,
 } = formSlice.actions;
 
 export default formSlice.reducer;

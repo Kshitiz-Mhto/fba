@@ -4,46 +4,32 @@ export type FormStatus = 'published' | 'draft' | 'closed';
 
 export interface Form {
     id: string;
+    owner_id: string;
     title: string;
+    description: string | null;
     status: FormStatus;
-    responses: number;
-    lastUpdated: string;
+    is_public: boolean;
+    allow_multiple_submissions: boolean;
+    close_date: string | null;
+    thank_you_message: string | null;
+    redirect_url: string | null;
+    responses?: number; // Calculated or returned separately
+    created_at: string;
+    updated_at: string;
 }
 
 interface DashboardState {
     forms: Form[];
     searchQuery: string;
     statusFilter: string;
+    loading: boolean;
 }
 
-const MOCK_FORMS: Form[] = [
-    {
-        id: '1',
-        title: 'Product Feedback Survey',
-        status: 'published',
-        responses: 128,
-        lastUpdated: '2 hours ago',
-    },
-    {
-        id: '4',
-        title: 'Website Redesign Feedback',
-        status: 'closed',
-        responses: 892,
-        lastUpdated: '1 week ago',
-    },
-    {
-        id: '5',
-        title: 'Event Registration Form',
-        status: 'draft',
-        responses: 0,
-        lastUpdated: '2 weeks ago',
-    },
-];
-
 const initialState: DashboardState = {
-    forms: MOCK_FORMS,
+    forms: [],
     searchQuery: '',
     statusFilter: 'all',
+    loading: false,
 };
 
 export const dashboardSlice = createSlice({
@@ -56,21 +42,24 @@ export const dashboardSlice = createSlice({
         setStatusFilter: (state, action: PayloadAction<string>) => {
             state.statusFilter = action.payload;
         },
+        setDashboardData: (state, action: PayloadAction<{ forms: Form[] | null, stats: any }>) => {
+            state.forms = action.payload.forms || [];
+            state.loading = false;
+        },
+        setLoading: (state, action: PayloadAction<boolean>) => {
+            state.loading = action.payload;
+        },
         deleteForm: (state, action: PayloadAction<string>) => {
             state.forms = state.forms.filter((f) => f.id !== action.payload);
         },
-        duplicateForm: (state, action: PayloadAction<string>) => {
-            const formToDuplicate = state.forms.find((f) => f.id === action.payload);
-            if (formToDuplicate) {
-                const newForm: Form = {
-                    ...formToDuplicate,
-                    id: crypto.randomUUID(),
-                    title: `${formToDuplicate.title} (Copy)`,
-                    responses: 0,
-                    lastUpdated: 'Just now',
-                    status: 'draft',
-                };
-                state.forms.unshift(newForm);
+        duplicateForm: (state, action: PayloadAction<Form>) => {
+            state.forms.unshift(action.payload);
+        },
+        updateFormStatus: (state, action: PayloadAction<{ id: string; status: FormStatus; is_public: boolean }>) => {
+            const form = state.forms.find((f) => f.id === action.payload.id);
+            if (form) {
+                form.status = action.payload.status;
+                form.is_public = action.payload.is_public;
             }
         },
     },
@@ -79,8 +68,11 @@ export const dashboardSlice = createSlice({
 export const {
     setSearchQuery,
     setStatusFilter,
+    setDashboardData,
+    setLoading,
     deleteForm,
     duplicateForm,
+    updateFormStatus,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
