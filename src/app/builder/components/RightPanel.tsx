@@ -43,7 +43,6 @@ export const RightPanel: React.FC = () => {
 
             <div className="flex-1 overflow-y-auto p-6">
                 <div className="space-y-6">
-                    {/* Question Type (Read-only for now) */}
                     <div>
                         <label className="block text-sm font-medium text-neutral-700">Type</label>
                         <div className="mt-1 block w-full rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-500 capitalize">
@@ -51,7 +50,6 @@ export const RightPanel: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Emoji Selection */}
                     <div className="relative">
                         <label className="block text-sm font-medium text-neutral-700 mb-2">Icon / Emoji</label>
                         <div className="flex items-center gap-3">
@@ -83,7 +81,6 @@ export const RightPanel: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Required Toggle */}
                     <div className="flex items-center justify-between">
                         <label className="text-sm font-medium text-neutral-700">Required</label>
                         <input
@@ -94,7 +91,6 @@ export const RightPanel: React.FC = () => {
                         />
                     </div>
 
-                    {/* Options for Select Types */}
                     {(selectedQuestion.type === 'single-select' || selectedQuestion.type === 'multi-select' || selectedQuestion.type === 'dropdown') && (
                         <div>
                             <label className="block text-sm font-medium text-neutral-700 mb-2">Options</label>

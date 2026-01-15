@@ -75,7 +75,6 @@ const SortableQuestionItem: React.FC<SortableQuestionItemProps> = ({ question, i
                 : 'border-transparent hover:bg-neutral-100'
                 }`}
         >
-            {/* Drag Handle */}
             <div
                 {...attributes}
                 {...listeners}
@@ -177,7 +176,6 @@ export const Canvas: React.FC = () => {
             onClick={() => dispatch(selectItem(null))}
         >
             <div className="mx-auto max-w-2xl space-y-8">
-                {/* Form Header */}
                 <div
                     onClick={(e) => { e.stopPropagation(); dispatch(selectItem(null)); }}
                     className={`group relative overflow-hidden rounded-xl border transition-all duration-300 cursor-pointer ${selectedId === null
@@ -185,7 +183,6 @@ export const Canvas: React.FC = () => {
                         : 'border-neutral-200 bg-white/50 hover:border-brand-200 hover:bg-white hover:shadow-md'
                         }`}
                 >
-                    {/* Decorative top accent */}
                     <div className={`absolute top-0 left-0 right-0 h-1.5 transition-colors duration-300 ${selectedId === null ? 'bg-brand-500' : 'bg-transparent group-hover:bg-brand-200'}`} />
 
                     <div className="p-8 sm:p-10">
@@ -208,7 +205,6 @@ export const Canvas: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Questions List */}
                 <DndContext
                     sensors={sensors}
                     collisionDetection={closestCenter}
