@@ -17,6 +17,9 @@ Craft is a modern, premium form builder designed for creating surveys, quizzes, 
 - **RBAC**: Role-Based Access Control to manage permissions across the platform.
 - **Responsive Design**: Fully responsive interface for a seamless experience on all devices.
 
+> ⚠️ **Warning**
+> The deployed app is cracked, some issues with form builder. fix soom
+
 ## Demo
 
 [User Activity](https://drive.google.com/file/d/1zcQ4xcyTB6uIagF3qD9cp7PgEloMQnV-/view?usp=sharing)
