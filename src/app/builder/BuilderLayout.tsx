@@ -27,6 +27,7 @@ export const BuilderLayout: React.FC = () => {
     const [isSaving, setIsSaving] = React.useState(false);
     const [lastSaved, setLastSaved] = React.useState<Date | null>(null);
     const [isLoaded, setIsLoaded] = React.useState(false);
+    const [error, setError] = React.useState<string | null>(null);
     const [isPublishModalOpen, setIsPublishModalOpen] = React.useState(false);
     const [publishUrl, setPublishUrl] = React.useState('');
 
@@ -37,15 +38,18 @@ export const BuilderLayout: React.FC = () => {
 
             // Reset form state before fetching new data
             setIsLoaded(false);
+            setError(null);
             dispatch(resetForm());
 
             try {
                 const data = await userAPI.getForm(id);
                 dispatch(setForm(data));
                 setLastSaved(new Date());
-                setIsLoaded(true);
             } catch (error) {
                 console.error('Failed to fetch form:', error);
+                setError('Failed to load form. Please check your connection and try again.');
+            } finally {
+                setIsLoaded(true);
             }
         };
         fetchForm();
@@ -108,7 +112,29 @@ export const BuilderLayout: React.FC = () => {
     };
 
     if (!isLoaded) {
-        return <Loader variant="full" text="Loading form builder..." />;
+        return <Loader variant="full" text="Entering builder..." />;
+    }
+
+    if (error) {
+        return (
+            <div className="flex h-screen flex-col items-center justify-center bg-neutral-50 p-4 text-center">
+                <div className="max-w-md space-y-6">
+                    <div className="bg-red-50 text-red-800 p-4 rounded-xl text-sm font-medium border border-red-100 italic">
+                        "{error}"
+                    </div>
+                    <div className="space-y-2">
+                        <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">Builder failed to initialize</h1>
+                        <p className="text-neutral-500">We couldn't load your form. This usually happens if the form was deleted or there's a connection issue.</p>
+                    </div>
+                    <button
+                        onClick={() => navigate('/dashboard')}
+                        className="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-all active:scale-95"
+                    >
+                        Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        );
     }
 
     return (

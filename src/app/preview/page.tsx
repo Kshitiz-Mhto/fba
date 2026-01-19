@@ -80,11 +80,6 @@ const PreviewPage: React.FC = () => {
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 selection:bg-brand-200 selection:text-brand-900 flex flex-col">
             <div className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-neutral-200 bg-white/80 backdrop-blur-md px-4 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <Link to="/builder" className="flex items-center gap-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Builder
-                    </Link>
-                    <div className="h-6 w-px bg-neutral-200" />
                     <span className="rounded bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">
                         Preview Mode
                     </span>

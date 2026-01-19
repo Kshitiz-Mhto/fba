@@ -71,7 +71,7 @@ export const formSlice = createSlice({
             state.questions.splice(endIndex, 0, removed);
         },
         setForm: (state, action: PayloadAction<{ title: string; description: string; questions: any[] }>) => {
-            state.title = action.payload.title;
+            state.title = action.payload.title || 'Untitled Form';
             state.description = action.payload.description || '';
             state.questions = (action.payload.questions || []).map((q) => ({
                 id: q.id,
