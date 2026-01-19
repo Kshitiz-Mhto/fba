@@ -17,6 +17,14 @@ Craft is a modern, premium form builder designed for creating surveys, quizzes, 
 - **RBAC**: Role-Based Access Control to manage permissions across the platform.
 - **Responsive Design**: Fully responsive interface for a seamless experience on all devices.
 
+## Demo
+
+[User Activity](https://drive.google.com/file/d/1zcQ4xcyTB6uIagF3qD9cp7PgEloMQnV-/view?usp=sharing)
+
+<br>
+
+[Admin Panel](https://drive.google.com/file/d/1FNJqlNlZAV4x098yJcjs-SW6witlwAH9/view?usp=sharing)
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Vite, Tailwind CSS, Lucide React, Framer Motion.
