@@ -20,7 +20,7 @@ Craft is a modern, premium form builder designed for creating surveys, quizzes, 
 > ⚠️ **Warning**
 > The deployed app is cracked, some issues with form builder. fix soom
 
-## Demo
+## 🎥 Demo
 
 [User Activity](https://drive.google.com/file/d/1zcQ4xcyTB6uIagF3qD9cp7PgEloMQnV-/view?usp=sharing)
 
