@@ -3,6 +3,7 @@ package user
 import (
 	"craft/internal/db"
 	"craft/internal/model"
+	"fmt"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"
@@ -29,13 +30,23 @@ type CreateFormRequest struct {
 func (h *FormHandler) CreateForm(c fiber.Ctx) error {
 	ctx := c.Context()
 	userIDRaw := c.Locals("user_id")
-	if userIDRaw == nil {
+	var userID uuid.UUID
+	switch v := userIDRaw.(type) {
+	case uuid.UUID:
+		userID = v
+	case string:
+		var err error
+		userID, err = uuid.Parse(v)
+		if err != nil {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": "Invalid user ID format",
+			})
+		}
+	default:
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"error": "User not authenticated",
+			"error": "User ID not found in context",
 		})
 	}
-
-	userID := userIDRaw.(uuid.UUID)
 
 	var req CreateFormRequest
 	if err := c.Bind().JSON(&req); err != nil {
@@ -60,6 +71,7 @@ func (h *FormHandler) CreateForm(c fiber.Ctx) error {
 	)
 
 	if err != nil {
+		fmt.Printf("ERROR: Failed to create form for user %s: %v\n", userID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error":  "Failed to create form",
 			"detail": err.Error(),
@@ -72,13 +84,23 @@ func (h *FormHandler) CreateForm(c fiber.Ctx) error {
 func (h *FormHandler) GetForm(c fiber.Ctx) error {
 	ctx := c.Context()
 	userIDRaw := c.Locals("user_id")
-	if userIDRaw == nil {
+	var userID uuid.UUID
+	switch v := userIDRaw.(type) {
+	case uuid.UUID:
+		userID = v
+	case string:
+		var err error
+		userID, err = uuid.Parse(v)
+		if err != nil {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": "Invalid user ID format",
+			})
+		}
+	default:
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"error": "User not authenticated",
+			"error": "User ID not found in context",
 		})
 	}
-
-	userID := userIDRaw.(uuid.UUID)
 	formIDStr := c.Params("id")
 	formID, err := uuid.Parse(formIDStr)
 	if err != nil {
