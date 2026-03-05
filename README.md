@@ -22,11 +22,11 @@ Craft is a modern, premium form builder designed for creating surveys, quizzes, 
 
 ## 🎥 Demo
 
-[User Activity](https://drive.google.com/file/d/1zcQ4xcyTB6uIagF3qD9cp7PgEloMQnV-/view?usp=sharing)
+[User Activity](https://drive.google.com/file/d/1YdVIUFQfHapzNatXyMYSOaqzF_K5QOR1/view?usp=sharing)
 
 <br>
 
-[Admin Panel](https://drive.google.com/file/d/1FNJqlNlZAV4x098yJcjs-SW6witlwAH9/view?usp=sharing)
+[Admin Panel](https://drive.google.com/file/d/1b4U-c7KYjNLBj9uHBs5ncoQqbTjr_NiD/view?usp=sharing)
 
 ## 🛠️ Tech Stack
 
